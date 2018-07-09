@@ -19,4 +19,12 @@ def gen_random():
 	finally:
 		return int(h.hexdigest(), 16)
 
+def gen_privkey():
+	valid = False
+	while not valid:
+		print("a")
+		k = gen_random()
+		valid = 0 < k < N
+	return k
 	
+
