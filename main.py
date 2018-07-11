@@ -3,11 +3,13 @@ from math import *
 from hashlib import *
 from requests import get
 from time import time
+from utils import *
 
 N = 1.158 * pow(10, 77)
 Gx = 55066263022277343669578718895168534326250603453777594175500187360389116729240
 Gy = 32670510020758816978083085130507043184471273380659243275938904335757337482424
 G = (Gx, Gy)
+
 
 def gen_random():
 	h = sha256()
@@ -30,7 +32,12 @@ def gen_privkey():
 	return k
 	
 def get_pubkey(privkey):
-	pubkey = privkey * G
-	return pubkey
+	(x, y) = (privkey * Gx, privkey * Gy)
+	return (x, y)
 	
-print(get_pubkey(gen_privkey()))
+def get_address(pubkey):
+	pk_hash = hash160(pubkey)
+	return pk_hash
+	
+print(get_address(get_pubkey(gen_privkey())))
+
