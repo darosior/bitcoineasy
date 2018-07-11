@@ -9,7 +9,14 @@ def hash160(data):
 	return rip.hexdigest()
 	
 def base58_encode(data):
-
+	alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+	x = data % 58
+	rest = data / 58
+	if rest == 0:
+		return alphabet[x]
+	else:
+		return dec2hex(rest) + alphabet[x]
+		
 def base58_decode(data):
 
 # Returns the base58check_encoded data, with prefix "version" 
