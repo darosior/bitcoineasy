@@ -11,11 +11,11 @@ def hash160(data):
 def base58_encode(data):
 	alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 	x = data % 58
-	rest = data / 58
+	rest = data // 58
 	if rest == 0:
 		return alphabet[x]
 	else:
-		return dec2hex(rest) + alphabet[x]
+		return base58_encode(rest) + alphabet[x]
 		
 def base58_decode(data):
 
