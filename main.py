@@ -1,3 +1,4 @@
+# coding: utf8
 from random import randint
 from math import *
 from hashlib import *
@@ -37,10 +38,9 @@ def get_pubkey(privkey):
 	
 def get_address(pubkey):
 	pk_hash = int(hash160(pubkey), 16)
-	print("sha+ripemd : ",pk_hash)
-	# Adding the version prefix, then base58 encoding it
+	# Adding the version prefix, then base58check encoding it
 	address = base58check_encode(pk_hash, 0x00)
 	return address
 	
-print(get_address(get_pubkey(gen_privkey()))
+print(get_address(get_pubkey(gen_privkey())))
 
