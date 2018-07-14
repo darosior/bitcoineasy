@@ -31,12 +31,10 @@ def base58_encode(n):
 		
 #def base58_decode(data):
 
-# Returns the base58check_encoded data, with prefix "version". <data> and <version> must be int !
+# Returns the base58check_encoded data, with prefix "version". <n> bytes and <version> int
 def base58check_encode(n, version):
-	payload = version.to_bytes(1, 'big') + n.to_bytes(sizeof(n), 'big')
-	shasha = double_sha256(payload) #str
+	shasha = double_sha256(n) #str
 	checksum = int(shasha[:8], 16).to_bytes(4, 'big') # First four bytes
-	print(hex(int.from_bytes(payload+checksum, 'big')))
-	return base58_encode(version) + base58_encode(int.from_bytes(payload+checksum, 'big'))
+	return base58_encode(version) + base58_encode(int.from_bytes(n+checksum, 'big'))
 
 #def base58check_decode(data):
