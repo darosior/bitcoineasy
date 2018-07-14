@@ -31,18 +31,18 @@ def gen_privkey():
 	return k
 	
 def get_pubkey_points(privkey):
-	(x, y) = secp256k1.privtopub(privkey.to_bytes(32, 'big'))
+	(x, y) = secp256k1.privtopub(privkey.to_bytes(sizeof(privkey), 'big'))
 	return (x, y)
 
 def get_pubkey(privkey):
-	(x, y) = secp256k1.privtopub(privkey.to_bytes(32, 'big'))
-	pk = 0x04.to_bytes(1, 'big') + x.to_bytes(32, 'big') + y.to_bytes(32, 'big')
+	(x, y) = secp256k1.privtopub(privkey.to_bytes(sizeof(privkey), 'big'))
+	pk = 0x04.to_bytes(1, 'big') + x.to_bytes(sizeof(x), 'big') + y.to_bytes(sizeof(y), 'big')
 	return pk #bytes
 
 def get_address(pubkey):
 	pk_hash = int(hash160(pubkey), 16)
 	# Adding the version prefix, then base58check encoding it
-	address = base58check_encode(pk_hash, 0x00)
+	address = base58check_encode(pk_hash.to_bytes(sizeof(pk_hash), 'big'), 0x00)
 	return address
 	
 print(get_address(get_pubkey(0x18E14A7B6A307F426A94F8114701E7C8E774E7F9A47E2C2035DB29A206321725)))
