@@ -5,11 +5,9 @@ from hashlib import *
 from requests import get
 from time import time
 from utils import *
+from py_ecc import secp256k1 # https://github.com/ethereum/py_ecc/blob/master/py_ecc/secp256k1/secp256k1.py
 
 N = 1.158 * pow(10, 77)
-Gx = 55066263022277343669578718895168534326250603453777594175500187360389116729240
-Gy = 32670510020758816978083085130507043184471273380659243275938904335757337482424
-G = (Gx, Gy)
 
 
 def gen_random():
@@ -32,15 +30,20 @@ def gen_privkey():
 		valid = 0 < k < N
 	return k
 	
-def get_pubkey(privkey):
-	(x, y) = (privkey * Gx, privkey * Gy)
+def get_pubkey_points(privkey):
+	(x, y) = secp256k1.privtopub(privkey.to_bytes(32, 'big'))
 	return (x, y)
-	
+
+def get_pubkey(privkey):
+	(x, y) = secp256k1.privtopub(privkey.to_bytes(32, 'big'))
+	pk = 0x04.to_bytes(1, 'big') + x.to_bytes(32, 'big') + y.to_bytes(32, 'big')
+	return pk #bytes
+
 def get_address(pubkey):
 	pk_hash = int(hash160(pubkey), 16)
 	# Adding the version prefix, then base58check encoding it
 	address = base58check_encode(pk_hash, 0x00)
 	return address
 	
-print(get_address(get_pubkey(gen_privkey())))
+print(get_address(get_pubkey(0x18E14A7B6A307F426A94F8114701E7C8E774E7F9A47E2C2035DB29A206321725)))
 
