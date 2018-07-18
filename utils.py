@@ -35,6 +35,6 @@ def base58_encode(n):
 def base58check_encode(n, version):
 	shasha = double_sha256(version+n) #str
 	checksum = int(shasha[:8], 16).to_bytes(4, 'big') # First four bytes
-	return base58_encode(int.from_bytes(version+n+checksum, 'big'))
+	return base58_encode(int.from_bytes(version, 'big'))+base58_encode(int.from_bytes(n+checksum, 'big'))
 
 #def base58check_decode(data):
