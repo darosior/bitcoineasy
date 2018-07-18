@@ -42,11 +42,12 @@ def get_pubkey(privkey):
 def get_address(pubkey):
 	pk_hash = int(hash160(pubkey), 16)
 	# Adding the version prefix, then base58check encoding it
-	address = base58check_encode(pk_hash.to_bytes(sizeof(pk_hash), 'big'), 0x00)
+	version = 0x00
+	address = base58check_encode(pk_hash.to_bytes(sizeof(pk_hash), 'big'), version.to_bytes(1, 'big'))
 	return address
 
 # Returns a tuple of an address and its corresponding private key
 def get_keypair():
-	pk = gen_privkey()
+	pk = 0x2AF78FBA65C06AECB10BD73E474E55D428F1F54FA731C7A13388C584E2041CE4
 	add = get_address(get_pubkey(pk))
 	return (hex(pk), add)

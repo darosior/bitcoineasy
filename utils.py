@@ -31,10 +31,10 @@ def base58_encode(n):
 		
 #def base58_decode(data):
 
-# Returns the base58check_encoded data, with prefix "version". <n> bytes and <version> int
+# Returns the base58check_encoded data, with prefix "version". <n> and <version> bytes
 def base58check_encode(n, version):
-	shasha = double_sha256(n) #str
+	shasha = double_sha256(version+n) #str
 	checksum = int(shasha[:8], 16).to_bytes(4, 'big') # First four bytes
-	return base58_encode(version) + base58_encode(int.from_bytes(n+checksum, 'big'))
+	return base58_encode(int.from_bytes(version+n+checksum, 'big'))
 
 #def base58check_decode(data):
