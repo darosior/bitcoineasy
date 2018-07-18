@@ -48,6 +48,6 @@ def get_address(pubkey):
 
 # Returns a tuple of an address and its corresponding private key
 def get_keypair():
-	pk = 0x2AF78FBA65C06AECB10BD73E474E55D428F1F54FA731C7A13388C584E2041CE4
+	pk = gen_privkey()
 	add = get_address(get_pubkey(pk))
 	return (hex(pk), add)
