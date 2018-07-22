@@ -5,4 +5,4 @@ from keys import *
 def get_keypair(compressed=True):
 	pk = gen_privkey()
 	addr = get_address(get_pubkey(pk, compressed))
-	return (wif_encode(pk.to_bytes(sizeof(pk), 'big')), addr)
+	return (wif_encode(pk.to_bytes(sizeof(pk), 'big'), compressed), addr)
