@@ -32,7 +32,7 @@ def base58_encode(n):
 #def base58_decode(data):
 
 # WIF-encode data (as bytes) provided. If the data (which likely be a private key) corresponds to a compressed pk
-def wif_encode(data, compressed=Falses:
+def wif_encode(data, compressed=False):
 	if compressed:
 		data = data + 0x01.to_bytes(1, 'big')
 	return base58check_encode(data, 0x80.to_bytes(1, 'big'))

@@ -50,4 +50,4 @@ def get_address(pubkey):
 def get_keypair():
 	pk = gen_privkey()
 	add = get_address(get_pubkey(pk))
-	return (hex(pk), add)
+	return (wif_encode(pk.to_bytes(32, 'big')), add)
