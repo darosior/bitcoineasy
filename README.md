@@ -12,4 +12,4 @@ Just import main.py while it's in development.
 # Examples
 
 
-_ ** Not finished yet, any remark or feature request are welcome ** _
+**_Not finished yet, any remark or feature request are welcome_**
