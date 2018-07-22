@@ -1,6 +1,11 @@
 # coding: utf8
 from hashlib import *
 from math import log
+from random import randint
+from time import time
+from math import *
+from hashlib import *
+from requests import get
 
 
 # To get the size in bytes of an integer, https://stackoverflow.com/questions/14329794/get-size-of-integer-in-python
