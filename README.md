@@ -23,8 +23,13 @@ You can base58 or base58check encode raw bytes with :
 base58_encode(data)
 base58check_encode(data)
 ```
-  
-  
+   
+   
 See the example.py file for more.
+  
+### To do
+- P2SH
+- bip38
+  
   
 **_Not finished yet, any remark or feature request are welcome_**
