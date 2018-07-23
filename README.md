@@ -3,8 +3,8 @@ A set of utility functions for Bitcoin.
 
 ## What can you do with it ?
 For now, I'm doing the key part.  
-You can generate private and public keys, adresses, and in different formats (compressed, uncompressed, WIF).  
-You can also use the functions from utils.py if you want to do other things (like base58check encoding, WIF encoding, pseudo-random generation, popular Bitcoin hashing functions).  
+You can generate private and derive corresponding public keys, addresses, and in different formats (compressed, uncompressed, WIF).  
+You can also use the functions from [utils.py](https://github.com/darosior/bitcoin-utils/blob/master/utils.py) if you want to do other things (like [base58check](https://github.com/darosior/bitcoin-utils/blob/master/utils.py#L53) encoding, [WIF](https://github.com/darosior/bitcoin-utils/blob/master/utils.py#L46) encoding, pseudo-random generation, [common Bitcoin hashing functions](https://github.com/darosior/bitcoin-utils/blob/master/utils.py#L19)).  
 
 ## How ?
 Just clone the repo and import main.py for now.  
