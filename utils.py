@@ -98,3 +98,12 @@ def wif_encode(data, compressed=False):
 	if compressed:
 		data = data + 0x01.to_bytes(1, 'big')
 	return base58check_encode(data, 0x80.to_bytes(1, 'big'))
+
+
+# WIF-decode string and returns bytes
+def wif_decode(string, compressed=False):
+    dec = base58check_decode(string)
+    if compressed:
+        return dec[:len(dec)-1]
+    else:
+        return dec
