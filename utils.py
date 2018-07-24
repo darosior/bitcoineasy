@@ -9,15 +9,13 @@ from requests import get
 
 
 # To get the size in bytes of an integer, https://stackoverflow.com/questions/14329794/get-size-of-integer-in-python
-from typing import List
-
-
 def sizeof(n):
 	if n == 0:
 		return 1
 	return int(log(n, 256)) + 1
 
 
+# Generates a pseudo-random int
 def gen_random():
 	h = sha256()
 	# 2 or 3 differents sources of entropy
@@ -73,6 +71,7 @@ def base58_decode(string):
                 n = n * pow(58, pos) + dict[i]
         pos += 1
     return floor(n) # To have an int
+
 
 # Returns the base58check_encoded data, with prefix "version". <n> and <version> bytes
 def base58check_encode(n, version):
