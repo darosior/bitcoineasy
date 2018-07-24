@@ -77,13 +77,20 @@ def base58_decode(string):
 def base58check_encode(n, version):
 	shasha = double_sha256(version+n) #str
 	checksum = int(shasha[:8], 16).to_bytes(4, 'big') # First four bytes
-	if int.from_bytes(version, 'big') == 0: #else leading zeros are wiped
+	if int.from_bytes(version, 'big') == 0: # Else leading zeros are wiped
 		return base58_encode(int.from_bytes(version, 'big'))+base58_encode(int.from_bytes(n+checksum, 'big'))
 	else:
 		return base58_encode(int.from_bytes(version+n+checksum, 'big'))
 
 
-#def base58check_decode(data):
+# Takes a string and returns bytes
+# The "zero" parameter is to specify if the string specified was encoded with a 0x00 prefix
+def base58check_decode(string, zero=False):
+    n = base58_decode(string)
+    if zero:
+        return n.to_bytes(sizeof(n), 'big')[:sizeof(n)-4]
+    else:
+        return n.to_bytes(sizeof(n), 'big')[1:sizeof(n) - 4]
 
 
 # WIF-encode data (as bytes) provided. If the data (which likely be a private key) corresponds to a compressed pk
