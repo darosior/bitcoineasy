@@ -15,6 +15,10 @@ scrypt
 pip3 install scrypt
 ```
 py_ecc (https://github.com/ethereum/py_ecc) for secp256k1
+pycrypto for AES
+```
+pip3 install pycrypto
+```
 
 ## Examples
 Generate a keypair (default is compressed public key and WIF encoded private key) : 
