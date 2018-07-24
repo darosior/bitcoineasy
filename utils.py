@@ -3,7 +3,7 @@ from hashlib import *
 from math import log
 from random import randint
 from time import time
-from math import *
+from math import log, floor
 from hashlib import *
 from requests import get
 
@@ -54,7 +54,7 @@ def base58_encode(n):
 		return base58_encode(rest) + alphabet[x]
 
 
-# Takes a string (base58 encoded number) and returns the base10 number
+# Takes a string (base58 encoded number) and returns an int (the base10 number)
 def base58_decode(string):
     alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
     # Populating a dictionary with base58 symbol chart
@@ -68,9 +68,9 @@ def base58_decode(string):
     for i in string:
         for y in alphabet:
             if i == y:
-                n = n * pow(58, pos) + dict[i]
+                n = n * 58 + dict[i]
         pos += 1
-    return floor(n) # To have an int
+    return n
 
 
 # Returns the base58check_encoded data, with prefix "version". <n> and <version> bytes
