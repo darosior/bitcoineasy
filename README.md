@@ -8,6 +8,13 @@ You can also use the functions from [utils.py](https://github.com/darosior/bitco
 
 ## How ?
 Just clone the repo and import main.py for now.  
+   
+## Dependencies
+scrypt
+```
+pip3 install scrypt
+```
+py_ecc (https://github.com/ethereum/py_ecc) for secp256k1
 
 ## Examples
 Generate a keypair (default is compressed public key and WIF encoded private key) : 
@@ -31,5 +38,12 @@ See the example.py file for more.
 - P2SH
 - bip38
   
+### Sources
+https://en.bitcoin.it/wiki/Base58Check_encoding
+https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki
+https://github.com/bitcoin/
+https://masteringbitcoin.neocities.org/
+https://bitcoin.org/
+https://bitcointalk.org/
   
 **_Not finished yet, any remark or feature request are welcome_**
