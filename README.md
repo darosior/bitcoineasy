@@ -37,6 +37,7 @@ See the example.py file for more.
 ### To do
 - P2SH
 - bip38
+- A better way to handle 0x00 prefix with base58check_decode()
   
 ### Sources
 https://en.bitcoin.it/wiki/Base58Check_encoding  
