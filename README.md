@@ -39,11 +39,11 @@ See the example.py file for more.
 - bip38
   
 ### Sources
-https://en.bitcoin.it/wiki/Base58Check_encoding
-https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki
-https://github.com/bitcoin/
-https://masteringbitcoin.neocities.org/
-https://bitcoin.org/
-https://bitcointalk.org/
+https://en.bitcoin.it/wiki/Base58Check_encoding  
+https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki  
+https://github.com/bitcoin/  
+https://masteringbitcoin.neocities.org/  
+https://bitcoin.org/  
+https://bitcointalk.org/  
   
 **_Not finished yet, any remark or feature request are welcome_**
