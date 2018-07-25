@@ -25,13 +25,16 @@ def get_pubkey_points(privkey):
 
 
 # Takes a private key as int or bytes and returns its derived public key as bytes
-def get_pubkey(privkey, compressed=True):
+def get_pubkey(privkey):
     if isinstance(privkey, int):
+        compressed = privkey.to_bytes(sizeof(privkey), 'big')[sizeof(privkey)-1] == 0x01.to_bytes(1, 'big') # Checking last byte
         (x, y) = secp256k1.privtopub(privkey.to_bytes(sizeof(privkey), 'big'))
     elif isinstance(privkey, bytes):
+        compressed = privkey[len(privkey)-1] == 0x01.to_bytes(1, 'big') # Checking last byte
         (x, y) = secp256k1.privtopub(privkey)
     else:
         raise ValueError("privkey must be int or bytes")
+    
     if not compressed:
         pk = 0x04.to_bytes(1, 'big') + x.to_bytes(sizeof(x), 'big') + y.to_bytes(sizeof(y), 'big')
     else:
