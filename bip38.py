@@ -61,4 +61,4 @@ def test():
     print("wif : ", encrypt('KwYgW8gcxj1JWJXhPSu4Fqwzfhp5Yfi42mdYmMa4XqK7NJxXUSK7', 'Satoshi'))
     print("expected : 6PYLtMnXvfG3oJde97zRyLYFZCYizPU5T3LwgdYJz1fRhh16bU7u6PPmY7")
 
-test()
+#test()
