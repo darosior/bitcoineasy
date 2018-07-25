@@ -30,17 +30,23 @@ def gen_random():
 		return int(h.hexdigest(), 16)
 
 
-# Returns the ripemd160(sha256(bytes)), used a lot in Bitcoin
-def hash160(bytes):
-	rip = new('ripemd160')
-	rip.update(sha256(bytes).digest())
-	return rip.hexdigest() #str
+# Returns the ripemd160(sha256(bytes)), used a lot in Bitcoin. If bin is True, returns bytes, else returns str.
+def hash160(bytes, bin=False):
+    rip = new('ripemd160')
+    rip.update(sha256(bytes).digest())
+    if bin:
+        return rip.hexdigest()  # type : bytes
+    else:
+    	return rip.hexdigest() # type : str
 
 
-# Returns the sha256(sha256(bytes)), also used a lot
-def double_sha256(bytes):
+# Returns the sha256(sha256(bytes)), also used a lot. If bin is True, returns bytes, else returns str.
+def double_sha256(bytes, bin=False):
     h = sha256(bytes)
-    return sha256(h.digest()).hexdigest() #str
+    if bin:
+        return sha256(h.digest()).digest() # type : bytes
+    else:
+        return sha256(h.digest()).hexdigest() # type : str
 
 
 # Takes a number (hex or dec) and returns its base58_encoding
