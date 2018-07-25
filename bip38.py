@@ -15,13 +15,13 @@ def encrypt(key, passphrase):
         if key[0] == "5":
             key = wif_decode(key)
         elif key[0] == "L" or key[0] == "K":
-            key = wif_decode(key, compressed=True)
+            key = wif_decode(key)
         else:
             raise ValueError("Private key passed as first argument is not a valid WIF-encoded privkey")
     elif isinstance(key, int):
         key = key.to_bytes(sizeof(key), 'big')
     # Then we set the flag depending of whether the key is compressed or not
-    if key[len(key)-1] == 0x01.to_bytes(1, 'big'): # Is compressed
+    if key[len(key)-1] == 0x01: # Is compressed
         flag = 0xe0.to_bytes(1, 'big')  # 11100000
     else: # Not compressed
         flag = 0xc0.to_bytes(1, 'big')  # 11000000
