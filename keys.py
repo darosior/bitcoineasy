@@ -5,11 +5,13 @@ N = 1.158 * pow(10, 77) # Max private key value
 
 
 # Generates a pseudo-random private key. Returns int.
-def gen_privkey():
+def gen_privkey(compressed=True):
     valid = False
     while not valid:
         k = gen_random()
         valid = 0 < k < N
+    if compressed:
+        k = int.from_bytes(k.to_bytes(sizeof(k), 'big')+0x01.to_bytes(1, 'big'), 'big')
     return k # type : int
 
 
@@ -34,7 +36,7 @@ def get_pubkey(privkey):
         (x, y) = secp256k1.privtopub(privkey)
     else:
         raise ValueError("privkey must be int or bytes")
-    
+
     if not compressed:
         pk = 0x04.to_bytes(1, 'big') + x.to_bytes(sizeof(x), 'big') + y.to_bytes(sizeof(y), 'big')
     else:
