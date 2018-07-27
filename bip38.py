@@ -15,13 +15,14 @@ def encrypt(key, passphrase):
         if key[0] == "5":
             key = wif_decode(key)
         elif key[0] == "L" or key[0] == "K":
-            key = wif_decode(key)
+            key = wif_decode(key) # Not specifying compressed here, cause it would wipe the last 0x01 byte
         else:
             raise ValueError("Private key passed as first argument is not a valid WIF-encoded privkey")
     elif isinstance(key, int):
         key = key.to_bytes(sizeof(key), 'big')
     # Then we set the flag depending of whether the key is compressed or not
     if key[len(key)-1] == 0x01: # Is compressed
+        key = key[:len(key)-1]
         flag = 0xe0.to_bytes(1, 'big')  # 11100000
     else: # Not compressed
         flag = 0xc0.to_bytes(1, 'big')  # 11000000
@@ -53,6 +54,7 @@ def test():
     print("")
     print("")
     print("With compression : ")
+    # Here I don't know why there is no 0x01 for compressed privkey
     print("hex : ", encrypt(0xCBF4B9F70470856BB4F40F80B87EDB90865997FFEE6DF315AB166D713AF433A5, 'TestingOneTwoThree'))
     print("wif : ", encrypt('L44B5gGEpqEDRS9vVPz7QT35jcBG2r3CZwSwQ4fCewXAhAhqGVpP', 'TestingOneTwoThree'))
     print("expected : 6PYNKZ1EAgYgmQfmNVamxyXVWHzK5s6DGhwP4J5o44cvXdoY7sRzhtpUeo")
@@ -61,4 +63,5 @@ def test():
     print("wif : ", encrypt('KwYgW8gcxj1JWJXhPSu4Fqwzfhp5Yfi42mdYmMa4XqK7NJxXUSK7', 'Satoshi'))
     print("expected : 6PYLtMnXvfG3oJde97zRyLYFZCYizPU5T3LwgdYJz1fRhh16bU7u6PPmY7")
 
-#test()
+if __name__ == '__main__':
+    test()
