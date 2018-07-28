@@ -18,8 +18,12 @@ def gen_privkey(compressed=True):
 # Takes a private key as int or bytes and returns its derived public key as a tuple of int
 def get_pubkey_points(privkey):
     if isinstance(privkey, int):
+        if sizeof(privkey) == 33: # If compressed
+            privkey = int.from_bytes(privkey.to_bytes(33, 'big')[:32], 'big')
         (x, y) = secp256k1.privtopub(privkey.to_bytes(sizeof(privkey), 'big'))
     elif isinstance(privkey, bytes):
+        if len(privkey) == 33: # If compressed
+            privkey = privkey[:32]
         (x, y) = secp256k1.privtopub(privkey)
     else:
         raise ValueError("privkey must be int or bytes")
@@ -28,15 +32,18 @@ def get_pubkey_points(privkey):
 
 # Takes a private key as int or bytes and returns its derived public key as bytes
 def get_pubkey(privkey):
+    # Checking key format
     if isinstance(privkey, int):
-        compressed = privkey.to_bytes(sizeof(privkey), 'big')[sizeof(privkey)-1] == 0x01.to_bytes(1, 'big') # Checking last byte
-        (x, y) = secp256k1.privtopub(privkey.to_bytes(sizeof(privkey), 'big'))
-    elif isinstance(privkey, bytes):
-        compressed = privkey[len(privkey)-1] == 0x01.to_bytes(1, 'big') # Checking last byte
-        (x, y) = secp256k1.privtopub(privkey)
-    else:
-        raise ValueError("privkey must be int or bytes")
-
+        privkey = privkey.to_bytes(sizeof(privkey), 'big')
+    elif not isinstance(privkey, bytes) and not isinstance(privkey, int):
+        raise ValueError("Private key must be passed as int or bytes")
+    # Checking key compression
+    compressed = len(privkey) == 33
+    if compressed:
+        privkey = privkey[:32]
+    # Derivating key points
+    (x, y) = secp256k1.privtopub(privkey)
+    # Returning key in corresponding format
     if not compressed:
         pk = 0x04.to_bytes(1, 'big') + x.to_bytes(sizeof(x), 'big') + y.to_bytes(sizeof(y), 'big')
     else:
