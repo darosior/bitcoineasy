@@ -51,13 +51,13 @@ def double_sha256(bytes, bin=False):
 
 # Takes a number (hex or dec) and returns its base58_encoding
 def base58_encode(n):
-	alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
-	x = n % 58
-	rest = n // 58
-	if rest == 0:
-		return alphabet[x]
-	else:
-		return base58_encode(rest) + alphabet[x]
+    alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+    x = n % 58
+    rest = n // 58
+    if rest == 0:
+        return alphabet[x]
+    else:
+        return base58_encode(rest) + alphabet[x]
 
 
 # Takes a string (base58 encoded number) and returns an int (the base10 number)
@@ -89,14 +89,14 @@ def base58check_encode(n, version):
 		return base58_encode(int.from_bytes(version+n+checksum, 'big'))
 
 
-# Takes a string and returns bytes
+# Takes a string and returns bytes. <n> (int) specify the number of prefix bytes
 # The "zero" parameter is to specify if the string specified was encoded with a 0x00 prefix
-def base58check_decode(string, zero=False):
-    n = base58_decode(string)
+def base58check_decode(string, n=1, zero=False):
+    data = base58_decode(string)
     if zero:
-        return n.to_bytes(sizeof(n), 'big')[:sizeof(n)-4]
+        return data.to_bytes(sizeof(data), 'big')[:sizeof(data)-4]
     else:
-        return n.to_bytes(sizeof(n), 'big')[1:sizeof(n) - 4]
+        return data.to_bytes(sizeof(data), 'big')[n:sizeof(data) - 4]
 
 
 # WIF-encode data (as bytes) provided. If the data (which likely be a private key) corresponds to a compressed pk
