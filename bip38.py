@@ -22,7 +22,6 @@ def encrypt(key, passphrase):
         key = key.to_bytes(sizeof(key), 'big')
     # Then we set the flag depending of whether the key is compressed or not
     if key[len(key)-1] == 0x01: # Is compressed
-        #key = key[:len(key)-1]
         flag = 0xe0.to_bytes(1, 'big')  # 11100000
     else: # Not compressed
         flag = 0xc0.to_bytes(1, 'big')  # 11000000
@@ -41,6 +40,7 @@ def encrypt(key, passphrase):
     encryptedhalf1 = cipher.encrypt( int1.to_bytes(sizeof(int1), 'big') )
     encryptedhalf2 = cipher.encrypt( int2.to_bytes(sizeof(int2), 'big') )
     return base58check_encode(flag + addresshash + encryptedhalf1 + encryptedhalf2, 0x0142.to_bytes(2, 'big'))
+
 
 # Takes <key> as str and <passphrase> as str. Returns the decrypted private key (bytes).
 def decrypt(key, passphrase):
@@ -71,6 +71,8 @@ def decrypt(key, passphrase):
     else:
         return False
 
+
+# Testing with values given in bip. CAUTION : I added a 0 to compressed key in order to have them in hex-compressed format.
 def test():
     print("Test with no compression : ")
     print(" Test 1")
@@ -154,6 +156,7 @@ def test():
     else:
         print("     Decryption Failed")
         print("     decrypted : ", decrypted)
+
 
 if __name__ == '__main__':
     test()
