@@ -137,7 +137,7 @@ def base58check_encode(n, version):
 		return base58_encode(int.from_bytes(version+n+checksum, 'big'))
 
 
-def base58check_decode(string, n=1, zero=False):*
+def base58check_decode(string, n=1, zero=False):
     """Returns the base58check_decoded data. Please notice the "zero" parameter.
 	
     Args:
