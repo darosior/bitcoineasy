@@ -25,7 +25,7 @@ def encrypt(key, passphrase):
         if key[0] == "5":
             key = wif_decode(key)
         elif key[0] == "L" or key[0] == "K":
-            key = wif_decode(key) # Not specifying compressed here, cause it would wipe the last 0x01 byte
+            key = wif_decode(key) + 0x01.to_bytes(1, 'big') # To keep the last 0x01 byte wiped by wif_decode
         else:
             raise ValueError("Private key passed as first argument is not a valid WIF-encoded privkey")
     elif isinstance(key, int):
