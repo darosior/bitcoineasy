@@ -1,11 +1,18 @@
 from py_ecc import secp256k1 # https://github.com/ethereum/py_ecc/blob/master/py_ecc/secp256k1/secp256k1.py
-from utils import *
+from utils import sizeof, gen_random, hash160, base58check_encode 
 
 N = 1.158 * pow(10, 77) # Max private key value
 
 
-# Generates a pseudo-random private key. Returns int.
 def gen_privkey(compressed=True):
+    """Generates a pseudo-random Bitcoin private key.
+    
+    Args:
+        compressed (bool): if the key will be used to derive compressed public key.
+        
+    Returns:
+        int: the private key.
+    """
     valid = False
     while not valid:
         k = gen_random()
@@ -15,8 +22,15 @@ def gen_privkey(compressed=True):
     return k # type : int
 
 
-# Takes a private key as int or bytes and returns its derived public key as a tuple of int
 def get_pubkey_points(privkey):
+    """Derives a public key from a private one.
+    
+    Args:
+        privkey (int|bytes): the private key to derive the public one from.
+        
+    Returns:
+        tuple: the points (x, y) of the public key on the secp256k1 curve 
+    """
     if isinstance(privkey, int):
         if sizeof(privkey) == 33: # If compressed
             privkey = int.from_bytes(privkey.to_bytes(33, 'big')[:32], 'big')
@@ -30,12 +44,19 @@ def get_pubkey_points(privkey):
     return (x, y)
 
 
-# Takes a private key as int or bytes and returns its derived public key as bytes
 def get_pubkey(privkey):
+    """Derives a public key from a private one.
+    
+    Args:
+        privkey (int|bytes): the private key to derive the public one from.
+        
+    Returns:
+        bytes: the corresponding public key 
+    """
     # Checking key format
     if isinstance(privkey, int):
         privkey = privkey.to_bytes(sizeof(privkey), 'big')
-    elif not isinstance(privkey, bytes) and not isinstance(privkey, int):
+    elif not isinstance(privkey, bytes):
         raise ValueError("Private key must be passed as int or bytes")
     # Checking key compression
     compressed = len(privkey) == 33
@@ -54,8 +75,15 @@ def get_pubkey(privkey):
     return pk # type : bytes
 
 
-# Takes a pubkey and returns the Bitcoin address corresponding. (P2PKH)
 def get_address(pubkey):
+    """Takes a pubkey and returns the Bitcoin address corresponding. (P2PKH)
+    
+    Args:
+        pubkey (bytes): the pubkey to get the address from.
+    
+    Returns:
+        str: the Bitcoin address.
+    """
     pk_hash = int(hash160(pubkey), 16)
     # Adding the version prefix, then base58check encoding it
     version = 0x00
