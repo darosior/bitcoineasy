@@ -1,15 +1,25 @@
 # coding: utf8
 
-from utils import *
-from keys import *
+from utils import sizeof, double_sha256, base58check_encode, base58check_decode, wif_decode
+from keys import get_address, get_pubkey
 import scrypt
 from Crypto.Cipher import AES
 
-# Encryption and decryption of private keys, as described in bip38 : https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki
-# Ec multiply not available for now
+"""
+Encryption and decryption of private keys, as described in bip38 : https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki
+Ec multiply not available for now
+"""
 
-# Takes <key> as str or int and <passphrase> as str. Returns an encrypted private key.
 def encrypt(key, passphrase):
+    """Encrypts a Bitcoin private key as described in bip38.
+    
+    Args:
+        key (int|str): a Bitcoin private key.
+        passphrase (str): the passphrase that will decrypt the private key.
+        
+    Returns:
+        str: the encrypted private key.
+    """
     # First handle the key format and pass to bytes
     if isinstance(key, str):
         if key[0] == "5":
@@ -42,8 +52,16 @@ def encrypt(key, passphrase):
     return base58check_encode(flag + addresshash + encryptedhalf1 + encryptedhalf2, 0x0142.to_bytes(2, 'big'))
 
 
-# Takes <key> as str and <passphrase> as str. Returns the decrypted private key (bytes).
 def decrypt(key, passphrase):
+    """Decrypts an encrypted Bitcoin private key.
+    
+    Args:
+        key (str): an encrypted Bitcoin private key.
+        passphrase (str): the passphrase used to encrypt the private key.
+        
+    Returns:
+        bytes: the private key.
+    """
     # Doing the reverse scheme
     dec = base58check_decode(key, n=2) # Version is 2 bytes length, cf encrypt()
     flag = dec[:1]
@@ -72,8 +90,10 @@ def decrypt(key, passphrase):
         return False
 
 
-# Testing with values given in bip. CAUTION : I added a 0 to compressed key in order to have them in hex-compressed format.
 def test():
+    """Run the tests with values given in bip.
+    CAUTION : I added a 0 to compressed keys in order to have them in hex-compressed format.
+    """
     print("Test with no compression : ")
     print(" Test 1")
     hex = encrypt(0xCBF4B9F70470856BB4F40F80B87EDB90865997FFEE6DF315AB166D713AF433A5, 'TestingOneTwoThree')
