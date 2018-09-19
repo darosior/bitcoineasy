@@ -53,7 +53,7 @@ def hash160(bytes, bin=False):
     rip = new('ripemd160')
     rip.update(sha256(bytes).digest())
     if bin:
-        return rip.hexdigest()  # type : bytes
+        return rip.digest()  # type : bytes
     else:
     	return rip.hexdigest() # type : str
 
