@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="bitcoin-easy",
-    version="0.0.1",
+    version="0.0.3",
     author="darosior",
     author_email="darosior@protonmail.com",
     description="Bitcoin for humans",

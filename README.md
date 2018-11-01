@@ -1,4 +1,4 @@
-# Bitcoin-easy
+# Bitcoineasy
 A set of utility functions for Bitcoin.
 
 ## What can you do with bitcoin-easy ? 
@@ -10,7 +10,7 @@ Still in development, more functions to come.
 ## How ?
 ```
 pip install bitcoin-easy
-from bitcoin-easy import bitcoin-easy
+from bitcoineasy import bitcoineasy
 ```  
    
 ## Dependencies
