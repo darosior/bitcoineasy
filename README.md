@@ -1,13 +1,17 @@
 # Bitcoin-easy
 A set of utility functions for Bitcoin.
 
-## What can you do with it ?
-For now, I'm doing the key part.  
-You can generate private and derive corresponding public keys, addresses, and in different formats (compressed, uncompressed, WIF).  
+## What can you do with bitcoin-easy ? 
+You can generate private and derive corresponding public keys, addresses, and in different formats (compressed, uncompressed, WIF).
+You can encrypt your keys in  an universal scheme described in [bip-038](https://github.com/bitcoin/bips/blob/master/bip-0038.mediawiki).
 You can also use the functions from [utils.py](https://github.com/darosior/bitcoin-utils/blob/master/utils.py) if you want to do other things (like [base58check](https://github.com/darosior/bitcoin-utils/blob/master/utils.py#L53) encoding, [WIF](https://github.com/darosior/bitcoin-utils/blob/master/utils.py#L46) encoding, pseudo-random generation, [common Bitcoin hashing functions](https://github.com/darosior/bitcoin-utils/blob/master/utils.py#L19)).  
+Still in development, more functions to come.
 
 ## How ?
-Just clone the repo and import main.py for now.  
+```
+pip install bitcoin-easy
+from bitcoin-easy import bitcoin-easy
+```  
    
 ## Dependencies
 scrypt
@@ -40,7 +44,6 @@ See the example.py file for more.
   
 ### To do
 - P2SH
-- bip38
 - A better way to handle 0x00 prefix with base58check_decode()
   
 ### Sources
