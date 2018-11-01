@@ -1,4 +1,4 @@
-# Bitcoineasy
+# Bitcoin-easy
 A set of utility functions for Bitcoin.
 
 ## What can you do with bitcoin-easy ? 
