@@ -1,6 +1,0 @@
-README.md
-setup.py
-bitcoin_utils.egg-info/PKG-INFO
-bitcoin_utils.egg-info/SOURCES.txt
-bitcoin_utils.egg-info/dependency_links.txt
-bitcoin_utils.egg-info/top_level.txt
