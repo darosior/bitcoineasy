@@ -1,5 +1,5 @@
 # coding: utf8
-from main import *
+from .bitcoineasy import get_keypair, bip38_encrypt, bip38_decrypt
 
 # Generates a basic (nothing compressed) Bitcoin "account" : an address and its corresponding private key
 def gen_keypair():

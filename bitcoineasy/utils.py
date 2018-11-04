@@ -1,10 +1,9 @@
 # coding: utf8
 from hashlib import sha256, new
-from math import log
 from random import randint
 from time import time
 from math import log, floor
-from requests import get
+import requests as r
 
 
 def sizeof(n):
@@ -32,7 +31,7 @@ def gen_random():
 	h.update(str(randint(0, pow(2, 256))).encode())
 	h.update(str(time()).encode())
 	try:
-		req = get("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
+		req = r.get("https://fr.wikipedia.org/wiki/Sp%C3%A9cial:Page_au_hasard")
 		h.update(str(req.content).encode())
 	except:
 		pass
@@ -120,7 +119,7 @@ def base58_decode(string):
 
 
 def base58check_encode(n, version):
-	"""Returns the base58check_encoded data, with prefix "version".
+    """Returns the base58check_encoded data, with prefix "version".
 	
 	Args:
 	    n (bytes): the data to base58check encode.
@@ -129,12 +128,12 @@ def base58check_encode(n, version):
 	Returns:
 	    str: the data encoded in base58check.
 	"""
-	shasha = double_sha256(version+n) #str
-	checksum = int(shasha[:8], 16).to_bytes(4, 'big') # First four bytes
-	if int.from_bytes(version, 'big') == 0: # Else leading zeros are wiped
-		return base58_encode(int.from_bytes(version, 'big'))+base58_encode(int.from_bytes(n+checksum, 'big'))
-	else:
-		return base58_encode(int.from_bytes(version+n+checksum, 'big'))
+    shasha = double_sha256(version+n) #str
+    checksum = int(shasha[:8], 16).to_bytes(4, 'big') # First four bytes
+    if int.from_bytes(version, 'big') == 0: # Else leading zeros are wiped
+        return base58_encode(int.from_bytes(version, 'big'))+base58_encode(int.from_bytes(n+checksum, 'big'))
+    else:
+        return base58_encode(int.from_bytes(version+n+checksum, 'big'))
 
 
 def base58check_decode(string, n=1, zero=False):

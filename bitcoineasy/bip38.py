@@ -1,7 +1,7 @@
 # coding: utf8
 
-from utils import sizeof, double_sha256, base58check_encode, base58check_decode, wif_decode
-from keys import get_address, get_pubkey
+from .utils import sizeof, double_sha256, base58check_encode, base58check_decode, wif_decode
+from .keys import get_address, get_pubkey
 import scrypt
 from Crypto.Cipher import AES
 

@@ -1,5 +1,5 @@
-from py_ecc import secp256k1 # https://github.com/ethereum/py_ecc/blob/master/py_ecc/secp256k1/secp256k1.py
-from utils import sizeof, gen_random, hash160, base58check_encode 
+from py_ecc import secp256k1
+from .utils import sizeof, gen_random, hash160, base58check_encode
 
 N = 1.158 * pow(10, 77) # Max private key value
 

@@ -1,7 +1,7 @@
 # coding: utf8
-from utils import wif_encode, sizeof
-from keys import gen_privkey, get_pubkey, get_address
-from bip38 import encrypt, decrypt
+from .utils import wif_encode, sizeof
+from .keys import gen_privkey, get_pubkey, get_address
+from .bip38 import encrypt, decrypt
 
 def get_keypair(compressed=True):
     """Generates a new Bitcoin keypair.
